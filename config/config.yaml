@@ -1,0 +1,50 @@
+# Configuration for Synthetic Manuscript Generator
+
+image:
+  width: 1024
+  height: 1024
+  channels: 3
+
+layout:
+  margins:
+    top: 50
+    bottom: 50
+    left: 80
+    right: 80
+  font_size: 40
+  min_lines: 5
+  max_lines: 15
+  line_spacing: 1.5
+
+text:
+  slant_min: -5
+  slant_max: 5
+  baseline_waviness: True
+  char_displacement: 2
+  color: [30, 30, 25]  # Dark brown/blackish
+
+background:
+  base_color: [240, 220, 180]  # aged paper yellowish-brown
+  texture: True
+  stains: True
+  scratches: True
+
+ink_effects:
+  fading: 0.2
+  bleeding: 0.1
+  smudging: 0.05
+  broken_strokes: 0.1
+
+deformation:
+  rotation_max: 1.5
+  perspective_distortion: 0.02
+  curved_page: True
+  uneven_illumination: True
+
+generation:
+  output_dir: "output"
+  dataset_splits:
+    train: 85
+    validation: 10
+    test: 5
+  random_seed: 42

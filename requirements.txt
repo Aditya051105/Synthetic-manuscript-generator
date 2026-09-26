@@ -1,0 +1,7 @@
+opencv-python
+numpy
+Pillow
+PyYAML
+tqdm
+pytest
+huggingface_hub

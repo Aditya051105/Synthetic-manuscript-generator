@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Environments
+.env
+.venv
+venv/
+ENV/
+
+# Output directories
+output/
+tests/test_output/
+
+# IDEs
+.idea/
+.vscode/
+*.swp
