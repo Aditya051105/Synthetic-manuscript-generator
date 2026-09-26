@@ -5,5 +5,4 @@ PyYAML
 tqdm
 pytest
 huggingface_hub
-Flask
-Flask-Cors
+streamlit
