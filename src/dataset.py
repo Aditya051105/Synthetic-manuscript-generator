@@ -9,6 +9,7 @@ from .ink_effects import apply_ink_effects
 from .deformation import apply_deformation
 from .annotation import write_annotation
 import glob
+import io
 
 def find_font(script_name):
     """Find a .ttf or .otf font for the given script inside fonts/script_name/"""
@@ -19,6 +20,37 @@ def find_font(script_name):
     if not fonts:
         return None
     return fonts[0] # Pick the first available
+
+def generate_script_images_memory(config, script_name, count, font_path, custom_text=None):
+    """
+    Runs generation for a limited count and returns BytesIO streams for Vercel deployment.
+    """
+    if custom_text:
+        corpus = [line.strip() for line in custom_text.splitlines() if line.strip()]
+    else:
+        corpus = load_text_corpus(script_name)
+        
+    image_width = config['image']['width']
+    image_height = config['image']['height']
+    font_size = config['layout']['font_size']
+    
+    results = []
+    
+    for _ in range(count):
+        bg_img = create_background(config)
+        lines = sample_text_lines(corpus, config)
+        boxes = generate_layout(config, len(lines), image_width, image_height, font_size)
+        rendered_layer, exact_text = render_text_on_image(bg_img, lines, boxes, font_path, config)
+        img_with_ink = apply_ink_effects(rendered_layer, config)
+        final_image = apply_deformation(img_with_ink, config)
+        
+        img_byte_arr = io.BytesIO()
+        final_image.save(img_byte_arr, format='PNG')
+        img_byte_arr.seek(0)
+        
+        results.append((img_byte_arr, exact_text))
+        
+    return results
 
 def generate_script_dataset(config, script_name, count_override=None):
     """

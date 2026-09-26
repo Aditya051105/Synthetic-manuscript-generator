@@ -1,7 +1,9 @@
-opencv-python
+opencv-python-headless
 numpy
 Pillow
 PyYAML
 tqdm
 pytest
 huggingface_hub
+Flask
+Flask-Cors

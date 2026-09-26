@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Synthetic Manuscript Generator Vercel Platform</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <meta name="description" content="Generate realistic historical manuscripts using AI on the cloud.">
+</head>
+<body>
+    <div class="background-elements">
+        <div class="glow-orb orb-1"></div>
+        <div class="glow-orb orb-2"></div>
+    </div>
+
+    <main class="dashboard-container">
+        <header>
+            <h1 class="gradient-text">Manuscript Generator</h1>
+            <p>Cloud-synthesized archival data pipelines.</p>
+        </header>
+
+        <section class="control-panel glass-panel">
+            <div class="form-group">
+                <label for="scriptType">Select Script</label>
+                <div class="custom-select">
+                    <select id="scriptType">
+                        <option value="devanagari">Devanagari</option>
+                        <option value="modi">Modi</option>
+                        <option value="sharada">Sharada</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="imgCount">Number of Images (Max 5)</label>
+                <input type="number" id="imgCount" min="1" max="5" value="3">
+                <small class="hint">Limited by Vercel serverless free tier execution timeouts.</small>
+            </div>
+            
+            <div class="form-group">
+                <label for="randomSeed">Random Seed</label>
+                <input type="number" id="randomSeed" value="42">
+            </div>
+
+            <div class="form-group">
+                <label for="customText">Custom Corpus (Optional)</label>
+                <textarea id="customText" rows="4" placeholder="Leave blank to use default samples..."></textarea>
+            </div>
+
+            <button id="generateBtn" class="primary-btn">
+                <span class="btn-text">Generate & Download .ZIP</span>
+                <div class="spinner hidden"></div>
+            </button>
+        </section>
+
+        <section class="status-panel glass-panel hidden" id="statusPanel">
+            <h3 id="statusTitle">Generating...</h3>
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+            <p id="statusMsg">Connecting to Vercel API...</p>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
