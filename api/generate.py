@@ -4,14 +4,20 @@ import zipfile
 import yaml
 from flask import Flask, request, send_file, jsonify
 from flask_cors import CORS
+
 from src.utils import set_seed
 from src.dataset import find_font, generate_script_images_memory
 
 app = Flask(__name__)
 CORS(app)
 
-@app.route('/api/generate', methods=['POST'])
+# Catch both possible Vercel routed paths
+@app.route('/api/generate', methods=['POST', 'GET'])
+@app.route('/generate', methods=['POST', 'GET'])
 def generate_api():
+    if request.method == 'GET':
+        return jsonify({"status": "API is online. Please use POST to generate datasets."}), 200
+
     req_data = request.json or {}
     
     script_name = req_data.get('script', 'devanagari')
@@ -52,5 +58,4 @@ def generate_api():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+# Vercel requires the app instance to be exported sometimes or just defined in the module.
